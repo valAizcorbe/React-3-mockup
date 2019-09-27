@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import data from "./data";
+import Header from "./components/Header";
+import MainContent from "./components/MainContent"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data: data,
+      index: 0
+    }
+  }
+
+  handleNext = () => {
+    if (this.state.index < this.state.data.length - 1) {
+      this.setState({ index: this.state.index + 1 })
+    }
+  }
+
+  handlePrevious = () => {
+    if (this.state.index > 0) {
+      this.setState({ index: this.state.index - 1 })
+    }
+  }
+
+
+  render() {
+    return (
+      <div className="App" >
+        <Header />
+        <MainContent
+          data={this.state.data}
+          index={this.state.index}
+          handleNext={this.handleNext}
+          handlePrevious={this.handlePrevious} />
+      </div>
+    );
+  }
+
+
 }
 
 export default App;
+
